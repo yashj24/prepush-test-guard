@@ -1,0 +1,35 @@
+{
+  "name": "git-prepush-check",
+  "version": "0.1.0",
+  "description": "Pre-push hook to lint staged files and warn about missing or outdated tests",
+  "main": "dist/check.js",
+  "types": "dist/check.d.ts",
+  "bin": {
+    "check-prepush": "dist/check.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "husky install",
+    "prepush-check": "ts-node src/check.ts"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.2.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.19.13",
+    "chai": "^6.0.1",
+    "husky": "^9.1.7",
+    "mocha": "^11.7.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "keywords": [
+    "git",
+    "husky",
+    "prepush",
+    "eslint",
+    "typescript",
+    "tests"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
