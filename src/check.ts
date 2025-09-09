@@ -1,6 +1,7 @@
 import { exec } from "child_process";
 import { promises as fs } from "fs";
 import * as path from "path";
+import readline from "readline";
 
 const runCommand = (cmd: string): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -19,11 +20,29 @@ const getChangedFiles = async (): Promise<string[]> => {
   return output.split("\n").filter(Boolean);
 };
 
+const askUser = (question: string): Promise<boolean> => {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+  return new Promise(resolve => {
+    rl.question(question + ' (y/n): ', answer => {
+      rl.close();
+      resolve(answer.trim().toLowerCase() === 'y');
+    });
+  });
+};
+
 const runLintOnFiles = async (files: string[]): Promise<void> => {
   const lintable = files.filter(f => f.endsWith(".ts") || f.endsWith(".tsx"));
   if (lintable.length === 0) return;
 
-  console.log("🔧 Running ESLint auto-fix on:", lintable.join(", "));
+  console.log("🔧 Lintable files:", lintable.join(", "));
+  const doLintFix = await askUser("Do you want to run ESLint auto-fix on these files?");
+  if (!doLintFix) {
+    console.log("Skipping lint-fix as per user choice.");
+    return;
+  }
 
   try {
     await runCommand(`pnpm lint-fix -- ${lintable.join(" ")}`);
