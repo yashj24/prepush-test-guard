@@ -26,9 +26,9 @@ const askUser = (question: string): Promise<boolean> => {
     output: process.stdout
   });
   return new Promise(resolve => {
-    rl.question(question + ' (y/n): ', answer => {
+    rl.question(question + " (y/n): ", answer => {
       rl.close();
-      resolve(answer.trim().toLowerCase() === 'y');
+      resolve(answer.trim().toLowerCase() === "y");
     });
   });
 };

@@ -10,13 +10,19 @@
   "scripts": {
     "build": "tsc",
     "prepare": "husky install",
-    "prepush-check": "ts-node src/check.ts"
+    "prepush-check": "ts-node src/check.ts",
+    "lint": "eslint src/**/*.ts tests/**/*.ts",
+    "lint-fix": "eslint src/**/*.ts tests/**/*.ts --fix",
+    "test": "mocha -r ts-node/register tests/**/*.test.ts"
   },
   "devDependencies": {
     "@types/chai": "^5.2.2",
     "@types/mocha": "^10.0.10",
     "@types/node": "^20.19.13",
+    "@typescript-eslint/eslint-plugin": "^8.43.0",
+    "@typescript-eslint/parser": "^8.43.0",
     "chai": "^6.0.1",
+    "eslint": "^9.35.0",
     "husky": "^9.1.7",
     "mocha": "^11.7.2",
     "ts-node": "^10.9.2",
